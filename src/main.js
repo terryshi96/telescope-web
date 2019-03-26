@@ -6,7 +6,10 @@ import store from './store'
 Vue.config.productionTip = false
 
 new Vue({
+  // 挂载路由
+  // 通过注入路由器，我们可以在任何组件内通过 this.$router 访问路由器，也可以通过 this.$route 访问当前路由
   router,
+  // // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件 子组件能通过 this.$store 访问到
   store,
   render: h => h(App)
 }).$mount('#app')
