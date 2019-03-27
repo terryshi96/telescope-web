@@ -1,6 +1,14 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+  <img src="../assets/logo.png">
+    <div>
+      <p>
+        If Ant-Design-Vue is successfully added to this project, you'll see an
+        <code v-text="'<a-button>'"></code>
+        below
+      </p>
+      <a-button type="primary">Primary</a-button>
+    </div>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
@@ -10,12 +18,14 @@
 // 所有.vue结尾的文件都是vue实例组件，有类似React的props的概念
 // 引入组件
 import HelloWorld from '@/components/HelloWorld.vue'
+import { Button } from 'ant-design-vue'
 
 export default {
   name: 'home',
   // 子组件注册
   components: {
-    HelloWorld
+    HelloWorld,
+    'a-button': Button
   }
   // 引入store中的函数, 使用map辅助方法，避免重复写this.$store, 当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
   // computed: {
@@ -44,3 +54,23 @@ export default {
   // 经常导致 Uncaught TypeError: Cannot read property of undefined 或 Uncaught TypeError: this.myMethod is not a function 之类的错误。
 }
 </script>
+
+<style lang="scss">
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+#nav {
+  padding: 30px;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
