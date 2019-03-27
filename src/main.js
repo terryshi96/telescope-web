@@ -13,3 +13,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+// 单页应用，只挂载一个app

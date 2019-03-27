@@ -17,7 +17,7 @@ export default new Router({
   // 或者，只是一个组件配置对象。
   routes: [
     {
-      path: '/',
+      path: '/helloworld',
       name: 'home',
       component: Home
     },
