@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 1. 定义 (路由) 组件。
 // 可以从其他文件 import 进来
-import Home from './views/Home.vue'
-
+import Home from '@/views/Home.vue'
+import Login from '@/views/SignIn.vue'
 // 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
 Vue.use(Router)
 
@@ -16,6 +16,11 @@ export default new Router({
   // 通过 Vue.extend() 创建的组件构造器，
   // 或者，只是一个组件配置对象。
   routes: [
+    {
+      path: '/',
+      name: 'login',
+      component: Login
+    },
     {
       path: '/helloworld',
       name: 'home',
