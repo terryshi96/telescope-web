@@ -13,14 +13,15 @@
         <a-icon v-else slot="prefix" type="eye" @click="showPassword" />
         <a-icon v-if="password" slot="suffix" type="close-circle" @click="emitEmpty('password')" />
       </a-input>
-      <a-button class="login_btn" @click="login" type="primary" :loading="isBtnLoading" block>{{ btnText }}</a-button>
+      <a-button class="login_btn" @click="login" type="primary" :disabled="isBtnLoading" :loading="isBtnLoading" block>{{ btnText }}</a-button>
     </div>
   </div>
 </template>
 
 <script>
 import { Button, Icon, Input } from 'ant-design-vue'
-import httpHelper from '@/utils/http-helper'
+import { httpHelper } from '@/utils/http-helper'
+import { Base64 } from 'js-base64'
 
 export default {
   data () {
@@ -39,10 +40,6 @@ export default {
   },
   created () {
     // 记住用户后 从localstorage中获得用户信息
-    // if (JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).userName) {
-    //   this.userName = JSON.parse(localStorage.getItem('user')).userName
-    //   this.password = JSON.parse(localStorage.getItem('user')).password
-    // }
   },
   computed: {
     btnText () {
@@ -61,11 +58,34 @@ export default {
         return
       }
       this.isBtnLoading = true
+      const type = 'post'
+      const url = '/api/v1/users/sign_in.json'
+      const params = {
+        account: this.userName,
+        password: this.password
+      }
+      httpHelper.REQUEST(url, params, type).then((res) => {
+        const status = res.data.status
+        if (status.code === '20000') {
+          const user = res.data.data.user
+          this.$cookies.set('user_session_key', user.authentication_token)
+          this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
+          this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
+          window.setTimeout(function () { window.location.href = '/opr' }, 1000)
+        } else {
+          this.$message.error(status.message)
+          this.isBtnLoading = false
+        }
+      }).catch((e) => {
+        console.log(e)
+      })
     },
+
     showPassword () {
       this.visible = !this.visible
       this.pwdType = this.pwdType === 'password' ? 'text' : 'password'
     },
+
     emitEmpty (inputName) {
       this.$refs[inputName].focus()
       this[inputName] = ''
