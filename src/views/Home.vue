@@ -21,7 +21,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import { Button } from 'ant-design-vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   // 子组件注册
   components: {
     HelloWorld,

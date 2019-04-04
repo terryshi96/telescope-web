@@ -1,18 +1,25 @@
 <template>
   <div>
+    <div class="background"></div>
     <div class="login_form">
         <!-- v-model用户数据双向绑定, ref用来给元素或子组件注册引用信息 -->
         <!-- 1、ref 加在普通的元素上，用this.ref.name 获取到的是dom元素 -->
         <!-- 2、ref 加在子组件上，用this.ref.name 获取到的是组件实例，可以使用组件的所有方法。 -->
+      <p id="title">Telescope</p>
+      <hr>
+      <br>
+      <div class="blank"></div>
       <a-input placeholder="Username" v-model="userName" ref="userName" size="large">
         <a-icon slot="prefix" type="user" />
         <a-icon v-if="userName" slot="suffix" type="close-circle" @click="emitEmpty('userName')" />
       </a-input>
+      <div class="blank"></div>
       <a-input placeholder="Password" v-model="password" ref="password" size="large" :type="pwdType">
         <a-icon v-if="visible" slot="prefix" type="eye-invisible" @click="showPassword" />
         <a-icon v-else slot="prefix" type="eye" @click="showPassword" />
         <a-icon v-if="password" slot="suffix" type="close-circle" @click="emitEmpty('password')" />
       </a-input>
+      <div class="blank"></div>
       <a-button class="login_btn" @click="login" type="primary" :disabled="isBtnLoading" :loading="isBtnLoading" block>{{ btnText }}</a-button>
     </div>
   </div>
@@ -43,18 +50,18 @@ export default {
   },
   computed: {
     btnText () {
-      if (this.isBtnLoading) return '登录中...'
-      return '登录'
+      if (this.isBtnLoading) return 'Logining...'
+      return 'Login'
     }
   },
   methods: {
     login () {
       if (!this.userName) {
-        this.$message.error('请输入用户名')
+        this.$message.error('Please enter username!')
         return
       }
       if (!this.password) {
-        this.$message.error('请输入密码')
+        this.$message.error('Please enter password!')
         return
       }
       this.isBtnLoading = true
@@ -95,16 +102,26 @@ export default {
 </script>
 
 <style lang="scss">
-.login_form .anticon-close-circle {
-  cursor: pointer;
-  color: #ccc;
-  transition: color 0.3s;
-  font-size: 12px;
+.background {
+  background-image: url(../assets/pexels-photo.jpg);
+  background-size: 90%;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
 }
-.login_form .anticon-close-circle:hover {
-  color: #999;
+.login_form {
+  width: 400px;
+  margin: 0 auto;
+  padding-top: 200px;
 }
-.login_form .anticon-close-circle:active {
-  color: #666;
+#title {
+  font-size: 50px;
+  margin: 0;
+}
+.blank {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>
