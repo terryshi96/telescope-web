@@ -103,8 +103,8 @@ export default {
 
 <style lang="scss">
 .background {
-  background-image: url(../assets/pexels-photo.jpg);
-  background-size: 90%;
+  background-image: url(../assets/pexels-photo.jpeg);
+  background-size: 100% 100%;
   position: absolute;
   top: 0;
   height: 100%;
@@ -120,6 +120,7 @@ export default {
   font-size: 50px;
   margin: 0;
   text-align: center;
+  color: white;
 }
 .blank {
   margin-top: 20px;
