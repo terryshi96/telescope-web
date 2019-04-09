@@ -71,21 +71,21 @@ export default {
         account: this.userName,
         password: this.password
       }
-      httpHelper.REQUEST(url, params, type).then((res) => {
-        const status = res.data.status
-        if (status.code === '20000') {
-          const user = res.data.data.user
-          this.$cookies.set('user_session_key', user.authentication_token)
-          this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
-          this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
+      // httpHelper.REQUEST(url, params, type).then((res) => {
+      //   const status = res.data.status
+      //   if (status.code === '20000') {
+      //     const user = res.data.data.user
+      //     this.$cookies.set('user_session_key', user.authentication_token)
+      //     this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
+      //     this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
           window.setTimeout(function () { window.location.href = '/opr' }, 1000)
-        } else {
-          this.$message.error(status.message)
-          this.isBtnLoading = false
-        }
-      }).catch((e) => {
-        console.log(e)
-      })
+      //   } else {
+      //     this.$message.error(status.message)
+      //     this.isBtnLoading = false
+      //   }
+      // }).catch((e) => {
+      //   console.log(e)
+      // })
     },
 
     showPassword () {
@@ -119,6 +119,7 @@ export default {
 #title {
   font-size: 50px;
   margin: 0;
+  text-align: center;
 }
 .blank {
   margin-top: 20px;

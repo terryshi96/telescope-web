@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 1. 定义 (路由) 组件。
 // 可以从其他文件 import 进来
-import Home from '@/views/Home.vue'
-import Login from '@/views/SignIn.vue'
+// import Login from '@/views/SignIn.vue'
 // 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
 Vue.use(Router)
 
@@ -18,21 +17,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Login
+      component: () => import(/* webpackChunkName: "about" */ './views/SignIn.vue')
     },
-    {
-      path: '/helloworld',
-      name: 'home',
-      component: Home
-    },
+    // {
+    //   path: '/helloworld',
+    //   name: 'home',
+    //   component: Home
+    // },
     {
       path: '*',
-      name: 'default',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/Default.vue')
+    },
+    {
+      path: '/opr',
+      component: () => import('./views/Opr.vue'),
+      children: [
+        {
+          path: 'domain',
+          component: () => import('./components/opr/Domain.vue')
+        },
+        {
+          path: '/',
+          component: () => import('./components/opr/Domain.vue')
+        },
+        {
+          path: 'receiver',
+          component: () => import('./components/opr/Receiver.vue')
+        }
+      ]
     }
     // 嵌套路由写法
     // { path: '/user/:id', component: User,
