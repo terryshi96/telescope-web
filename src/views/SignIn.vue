@@ -78,7 +78,7 @@ export default {
       //     this.$cookies.set('user_session_key', user.authentication_token)
       //     this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
       //     this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
-          window.setTimeout(function () { window.location.href = '/opr' }, 1000)
+      window.setTimeout(function () { window.location.href = '/opr' }, 1000)
       //   } else {
       //     this.$message.error(status.message)
       //     this.isBtnLoading = false

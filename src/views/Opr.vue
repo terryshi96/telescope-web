@@ -1,17 +1,26 @@
 <template>
-    <div id="opr">
-        <TopNav></TopNav>
-        <SideBar></SideBar>
-        <router-view/>
-    </div>
+    <a-layout id="opr-layout" style="min-height: 100vh">
+        <Sider></Sider>
+        <a-layout>
+          <Header></Header>
+          <router-view/>
+          <Footer></Footer>
+        </a-layout>
+    </a-layout>
 </template>
+
 <script>
-import TopNav from '@/components/TopNav.vue'
-import SideBar from '@/components/SideBar.vue'
+import Header from '@/components/Header.vue'
+import Sider from '@/components/Sider.vue'
+import Footer from '@/components/Footer.vue'
+import { Layout } from 'ant-design-vue'
+
 export default {
-    components: {
-        TopNav,
-        SideBar
-    }
+  components: {
+    Header,
+    Footer,
+    Sider,
+    'a-layout': Layout
+  }
 }
 </script>
