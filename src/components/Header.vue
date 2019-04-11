@@ -9,7 +9,7 @@ import { Layout } from 'ant-design-vue'
 
 export default {
   name: 'Header',
-    components: {
+  components: {
     'a-layout-header': Layout.Header
   }
 }

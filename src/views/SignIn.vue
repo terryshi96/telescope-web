@@ -46,7 +46,12 @@ export default {
     'a-input': Input
   },
   created () {
-    // 记住用户后 从localstorage中获得用户信息
+    // 判断是否已经登陆
+    const userSessionKey = this.$cookies.get('user_session_key')
+    if (userSessionKey !== null) {
+      window.setTimeout(function () { window.location.href = '/opr' }, 10)
+    }
+    // todo 记住密码后 填充用户名密码
   },
   computed: {
     btnText () {
@@ -71,21 +76,21 @@ export default {
         account: this.userName,
         password: this.password
       }
-      // httpHelper.REQUEST(url, params, type).then((res) => {
-      //   const status = res.data.status
-      //   if (status.code === '20000') {
-      //     const user = res.data.data.user
-      //     this.$cookies.set('user_session_key', user.authentication_token)
-      //     this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
-      //     this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
-      window.setTimeout(function () { window.location.href = '/opr' }, 1000)
-      //   } else {
-      //     this.$message.error(status.message)
-      //     this.isBtnLoading = false
-      //   }
-      // }).catch((e) => {
-      //   console.log(e)
-      // })
+      httpHelper.REQUEST(url, params, type).then((res) => {
+        const status = res.data.status
+        if (status.code === '20000') {
+          const user = res.data.data.user
+          this.$cookies.set('user_session_key', user.authentication_token)
+          this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
+          this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
+          window.setTimeout(function () { window.location.href = '/opr' }, 1000)
+        } else {
+          this.$message.error(status.message)
+          this.isBtnLoading = false
+        }
+      }).catch((e) => {
+        console.log(e)
+      })
     },
 
     showPassword () {
@@ -102,15 +107,15 @@ export default {
 </script>
 
 <style lang="scss">
-.background {
-  background-image: url(../assets/pexels-photo.jpeg);
-  background-size: 100% 100%;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-}
+// .background {
+//   background-image: url(../assets/pexels-photo.jpeg);
+//   background-size: 100% 100%;
+//   position: absolute;
+//   top: 0;
+//   height: 100%;
+//   width: 100%;
+//   z-index: -1;
+// }
 .login_form {
   width: 400px;
   margin: 0 auto;
@@ -120,7 +125,7 @@ export default {
   font-size: 50px;
   margin: 0;
   text-align: center;
-  color: white;
+  // color: white;
 }
 .blank {
   margin-top: 20px;

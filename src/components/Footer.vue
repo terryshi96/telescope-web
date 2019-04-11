@@ -10,7 +10,7 @@ import { Layout } from 'ant-design-vue'
 export default {
   name: 'Footer',
   components: {
-      'a-layout-footer': Layout.Footer
+    'a-layout-footer': Layout.Footer
   }
 }
 </script>

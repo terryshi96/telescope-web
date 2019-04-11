@@ -21,6 +21,13 @@ export default {
     Footer,
     Sider,
     'a-layout': Layout
+  },
+  created () {
+    // 判断是否已经登陆
+    const userSessionKey = this.$cookies.get('user_session_key')
+    if (userSessionKey === null) {
+      window.setTimeout(function () { window.location.href = '/' }, 500)
+    }
   }
 }
 </script>

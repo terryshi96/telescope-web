@@ -14,9 +14,11 @@ const ApiConfig = {
 const instance = axios.create({
   baseURL: ApiConfig.api_url
 })
+let refreshSubscribers = []
 
 class HttpHelper {
   constructor () {
+    // 将interceptor绑定到httphelper实例
     this.axiosInterceptor(instance)
   }
   /**
@@ -44,7 +46,7 @@ class HttpHelper {
      * @param config
      */
   requestInterceptor (config) {
-    // console.log('request!!!!!!!!!!!!!!!!!!!!!!!!!', config.url);
+    // console.log('request!!!!!!!!!!!!!!!!!!!!!!!!!', config.url)
     const token = JSON.parse(localStorage.getItem('token'))
     // token request
     if (config.url === `/${ApiConfig.api_url}oauth/token.json?`) return config
@@ -61,10 +63,24 @@ class HttpHelper {
               access_token: res.data.access_token
             }
             localStorage.setItem('token', JSON.stringify(tokenObj))
-            // resolve request between get token
-            isRefreshing = false
+            // 更新token
+            // console.log('3333333333333')
+            this.onRefreshed(res.data.access_token)
           })
       }
+      // 异步刷新token
+      const retryOrigReq = new Promise((resolve, reject) => {
+        // console.log('111111111111')
+        // 讲一个赋值函数push到数组中
+        this.subscribeTokenRefresh((newToken) => {
+          // console.log('444444444444444444')
+          // replace the expired token and retry
+          config.data.access_token = newToken
+          // config.params['access_token'] = newToken
+          resolve(config)
+        })
+      })
+      return retryOrigReq
     }
     return config
   }
@@ -82,6 +98,28 @@ class HttpHelper {
     return instance.post(url, params)
   }
 
+  /**
+     * subscribe need refresh URL
+     * @param {callback} cb
+     */
+  subscribeTokenRefresh (cb) {
+    refreshSubscribers.push(cb)
+    // console.log('222222222222222')
+  }
+
+  /**
+   * refresh URLs
+   * @param {} token
+   */
+  onRefreshed (token) {
+    // 调用压入的赋值函数
+    refreshSubscribers.map(cb => {
+      cb(token)
+    })
+    // console.log('5555555555555555')
+    refreshSubscribers = []
+    isRefreshing = false
+  }
   /**
    * 自定义封装请求
    * @param url

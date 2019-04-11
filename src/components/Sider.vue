@@ -48,11 +48,11 @@ export default {
     'a-sub-menu': Menu.SubMenu,
     'a-icon': Icon
   },
-  data() {
+  data () {
     return {
-      collapsed: false,
+      collapsed: false
     }
-  },
+  }
 }
 </script>
 
