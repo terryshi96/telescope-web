@@ -81,8 +81,8 @@ export default {
         if (status.code === '20000') {
           const user = res.data.data.user
           this.$cookies.set('user_session_key', user.authentication_token)
-          this.$cookies.set('name', Base64.encode(user.account), { expires: 30 })
-          this.$cookies.set('pass', Base64.encode(user.password), { expires: 30 })
+          this.$cookies.set('name', Base64.encode(this.userName))
+          this.$cookies.set('pass', Base64.encode(this.password))
           window.setTimeout(function () { window.location.href = '/opr' }, 1000)
         } else {
           this.$message.error(status.message)
