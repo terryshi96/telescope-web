@@ -2,36 +2,29 @@
     <a-layout-sider
       collapsible
       v-model="collapsed"
+      theme="light"
+      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '55px', bottom: '48px' }"
     >
-      <div class="logo" />
-      <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline">
+
+      <a-menu theme="light" :defaultSelectedKeys="['1']" mode="inline">
         <a-menu-item key="1">
-          <a-icon type="pie-chart" />
-          <span>Option 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="desktop" />
-          <span>Option 2</span>
+          <a-icon type="compass" />
+          <span>Speed Dial</span>
         </a-menu-item>
         <a-sub-menu
           key="sub1"
         >
-          <span slot="title"><a-icon type="user" /><span>User</span></span>
-          <a-menu-item key="3">Tom</a-menu-item>
-          <a-menu-item key="4">Bill</a-menu-item>
-          <a-menu-item key="5">Alex</a-menu-item>
+          <span slot="title"><a-icon type="hdd" /><span>Monitoring</span></span>
+          <a-menu-item key="2">SSL Expiration</a-menu-item>
+          <a-menu-item key="3">Sites</a-menu-item>
         </a-sub-menu>
         <a-sub-menu
           key="sub2"
         >
-          <span slot="title"><a-icon type="team" /><span>Team</span></span>
-          <a-menu-item key="6">Team 1</a-menu-item>
-          <a-menu-item key="8">Team 2</a-menu-item>
+          <span slot="title"><a-icon type="setting" /><span>Settings</span></span>
+          <a-menu-item key="5">User</a-menu-item>
+          <a-menu-item key="6">Notification</a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="9">
-          <a-icon type="file" />
-          <span>File</span>
-        </a-menu-item>
       </a-menu>
     </a-layout-sider>
 </template>
@@ -56,10 +49,3 @@ export default {
 }
 </script>
 
-<style>
-.logo {
-  height: 32px;
-  background: rgba(255,255,255,.2);
-  margin: 16px;
-}
-</style>

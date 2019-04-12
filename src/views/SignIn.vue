@@ -45,7 +45,7 @@ export default {
     'a-icon': Icon,
     'a-input': Input
   },
-  created () {
+  beforeCreate () {
     // 判断是否已经登陆
     const userSessionKey = this.$cookies.get('user_session_key')
     if (userSessionKey !== null) {
@@ -83,6 +83,7 @@ export default {
           this.$cookies.set('user_session_key', user.authentication_token)
           this.$cookies.set('name', Base64.encode(this.userName))
           this.$cookies.set('pass', Base64.encode(this.password))
+          this.$message.success('Login successfully')
           window.setTimeout(function () { window.location.href = '/opr' }, 1000)
         } else {
           this.$message.error(status.message)

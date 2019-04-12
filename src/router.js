@@ -41,11 +41,11 @@ export default new Router({
         },
         {
           path: '/',
-          component: () => import('./components/opr/Domain.vue')
+          component: () => import('./components/opr/SpeedDial.vue')
         },
         {
-          path: 'receiver',
-          component: () => import('./components/opr/Receiver.vue')
+          path: 'notification',
+          component: () => import('./components/opr/Notification.vue')
         }
       ]
     }
