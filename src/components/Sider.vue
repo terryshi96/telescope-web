@@ -1,9 +1,7 @@
 <template>
     <a-layout-sider
-      collapsible
-      v-model="collapsed"
       theme="light"
-      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '55px', bottom: '48px' }"
+      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '55px', bottom: 0 }"
     >
 
       <a-menu theme="light" :defaultSelectedKeys="['1']" mode="inline">
@@ -41,11 +39,11 @@ export default {
     'a-sub-menu': Menu.SubMenu,
     'a-icon': Icon
   },
-  data () {
-    return {
-      collapsed: false
-    }
-  }
+  // data () {
+  //   return {
+  //     collapsed: false
+  //   }
+  // }
 }
 </script>
 
