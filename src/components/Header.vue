@@ -1,5 +1,7 @@
 <template>
-  <a-layout-header :style="{padding: 0, background: '#077CBC', 'line-height': '55px', height: '55px', position: 'fixed', width: '100%' }">
+  <a-layout-header 
+      :style="{padding: 0, background: '#077CBC', 'line-height': '55px', height: '55px', position: 'fixed', width: '100%','box-shadow': '0 0 0 2px blue' }"
+  >
       <div class="logo">
         <p>Telescope</p>
       </div>

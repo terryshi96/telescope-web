@@ -1,7 +1,7 @@
 <template>
     <a-layout-sider
       theme="light"
-      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '55px', bottom: 0 }"
+      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '57px', bottom: 0 }"
     >
 
       <a-menu theme="light" :defaultSelectedKeys="['1']" mode="inline">
