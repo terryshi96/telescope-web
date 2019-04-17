@@ -3,7 +3,7 @@
         <Header></Header>
         <a-layout>
           <Sider></Sider>
-          <a-layout :style="{ marginLeft: '200px', marginTop: '55px'}">
+          <a-layout :style="{ marginLeft: '80px', marginTop: '55px'}">
             <router-view/>
             <Footer></Footer>
           </a-layout>

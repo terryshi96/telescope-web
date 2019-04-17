@@ -23,4 +23,9 @@
 .anticon-close-circle:active {
   color: #666;
 }
+.content {
+  padding: 24px;
+  background: #fff; 
+  min-height: 360px;
+}
 </style>
