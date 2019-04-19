@@ -26,6 +26,6 @@
 .content {
   padding: 24px;
   background: #fff; 
-  min-height: 360px;
+  min-height: 600px;
 }
 </style>

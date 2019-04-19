@@ -3,7 +3,7 @@
       theme="light"
       collapsible
       v-model="collapsed"
-      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '105px', bottom: 0 }"
+      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '105px', bottom: 0, 'z-index': 2 }"
       @mouseleave="mouseleave"
     >
 
