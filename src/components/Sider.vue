@@ -8,14 +8,14 @@
     >
 
       <a-menu theme="light" :defaultSelectedKeys="['1']" mode="inline">
-        
+
         <a-menu-item key="1">
             <router-link to="/opr" tag="span">
               <a-icon type="compass" />
               <span>Speed Dial</span>
             </router-link>
         </a-menu-item>
-        
+
         <a-sub-menu key="sub1">
           <span slot="title"><a-icon type="hdd" /><span>Monitoring</span></span>
 
@@ -56,9 +56,9 @@ export default {
     }
   },
   methods: {
-    mouseleave() {
+    mouseleave () {
       this.collapsed = true
-    },
+    }
     // mouseenter() {
     //   this.collapsed = false
     // }
@@ -69,6 +69,6 @@ export default {
 <style lang="scss">
   .ant-layout-sider-trigger {
     top: 57px;
-    border-right: 1px solid #e8e8e8; 
+    border-right: 1px solid #e8e8e8;
   }
 </style>

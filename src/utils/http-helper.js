@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Base64 } from 'js-base64'
 import { notification } from 'ant-design-vue'
+import { Cookies } from 'js-cookie'
 
 let isRefreshing = false
 const ApiConfig = {
@@ -141,12 +142,11 @@ class HttpHelper {
   requestBody (url, params, type) {
     const token = JSON.parse(localStorage.getItem('token'))
     params['access_token'] = token ? token.access_token : ''
-
     switch (type) {
       case 'get':
         // user_session_key失效时，取得cookie中的账户重新获取session_key,然后再次发请求
         return instance.get(url, { params }).then((res) => {
-          if (res.data.status.code === '50001' && this.$cookies.get('name') && this.$cookies.get('pass')) {
+          if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.get(url, { params })
             })
@@ -155,7 +155,7 @@ class HttpHelper {
         })
       case 'post':
         return instance.post(url, params).then((res) => {
-          if (res.data.status.code === '50001' && this.$cookies.get('name') && this.$cookies.get('pass')) {
+          if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.post(url, params)
             })
@@ -164,7 +164,7 @@ class HttpHelper {
         })
       case 'put':
         return instance.put(url, params).then((res) => {
-          if (res.data.status.code === '50001' && this.$cookies.get('name') && this.$cookies.get('pass')) {
+          if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.put(url, params)
             })
@@ -173,7 +173,7 @@ class HttpHelper {
         })
       case 'delete':
         return instance.delete(url, { params }).then((res) => {
-          if (res.data.status.code === '50001' && this.$cookies.get('name') && this.$cookies.get('pass')) {
+          if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.delete(url, { params })
             })
@@ -182,7 +182,7 @@ class HttpHelper {
         })
       case 'patch':
         return instance.patch(url, params).then((res) => {
-          if (res.data.status.code === '50001' && this.$cookies.get('name') && this.$cookies.get('pass')) {
+          if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.patch(url, params)
             })
@@ -196,15 +196,15 @@ class HttpHelper {
     const type = 'post'
     const url = '/api/v1/users/sign_in.json'
     const params = {
-      account: Base64.decode(this.$cookies.get('name')),
-      password: Base64.decode(this.$cookies.get('pass'))
+      account: Base64.decode(Cookies.get('name')),
+      password: Base64.decode(Cookies.get('pass'))
     }
 
     return this.REQUEST(url, params, type).then((res) => {
       const status = res.data.status
       if (status.code === '20000') {
         const user = res.data.data.user
-        this.$cookies.set('user_session_key', user.user_session_key)
+        Cookies.set('user_session_key', user.user_session_key)
         return true
       } else {
         notification.error({
@@ -212,8 +212,8 @@ class HttpHelper {
         })
         window.sessionStorage.clear()
         for (const o of ['user_session_key', 'user_id', 'user']) {
-          if (this.$cookies.get(o)) {
-            this.$cookies.remove(o)
+          if (Cookies.get(o)) {
+            Cookies.remove(o)
           }
         }
         localStorage.removeItem('token')

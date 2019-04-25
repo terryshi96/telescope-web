@@ -25,7 +25,7 @@
 }
 .content {
   padding: 24px;
-  background: #fff; 
+  background: #fff;
   min-height: 600px;
 }
 </style>
