@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Base64 } from 'js-base64'
 import { notification } from 'ant-design-vue'
-import { Cookies } from 'js-cookie'
+import Cookies from 'js-cookie'
 
 let isRefreshing = false
 const ApiConfig = {
