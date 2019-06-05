@@ -72,12 +72,12 @@ class HttpHelper {
       // 异步刷新token
       const retryOrigReq = new Promise((resolve, reject) => {
         // console.log('111111111111')
-        // 讲一个赋值函数push到数组中
+        // 将一个赋值函数push到数组中
         this.subscribeTokenRefresh((newToken) => {
           // console.log('444444444444444444')
           // replace the expired token and retry
-          config.data.access_token = newToken
-          // config.params['access_token'] = newToken
+          // todo check config
+          config.method === 'post' ? config.data.access_token = newToken : config.params.access_token = newToken
           resolve(config)
         })
       })
@@ -142,6 +142,7 @@ class HttpHelper {
   requestBody (url, params, type) {
     const token = JSON.parse(localStorage.getItem('token'))
     params['access_token'] = token ? token.access_token : ''
+    // console.log(params['access_token'])
     switch (type) {
       case 'get':
         // user_session_key失效时，取得cookie中的账户重新获取session_key,然后再次发请求
@@ -208,7 +209,7 @@ class HttpHelper {
         return true
       } else {
         notification.error({
-          description: '用户信息验证失败，请重新登录'
+          description: status.message
         })
         window.sessionStorage.clear()
         for (const o of ['user_session_key', 'user_id', 'user']) {

@@ -1,6 +1,7 @@
 
 module.exports = {
   lintOnSave: true,
+  chainWebpack: config => config.resolve.symlinks(false),
   devServer: {
     proxy: {
       // proxy all requests starting with /api to jsonplaceholder

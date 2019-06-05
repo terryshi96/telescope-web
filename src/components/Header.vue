@@ -2,12 +2,12 @@
   <a-layout-header
       :style="{
         padding: 0,
-        background: '#077CBC',
+        background: '#1890ff',
         'line-height': '55px',
         height: '55px',
         position: 'fixed',
         width: '100%',
-        'box-shadow': '0 0 0 2px blue',
+        'box-shadow': '0 2px 8px #6699ff',
         'z-index': 2
       }"
   >

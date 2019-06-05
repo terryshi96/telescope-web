@@ -9,7 +9,7 @@
   </div>
 </template>
 
-// common css
+// common css 全局样式
 <style lang="scss">
 .anticon-close-circle {
   cursor: pointer;
@@ -26,6 +26,5 @@
 .content {
   padding: 24px;
   background: #fff;
-  min-height: 600px;
 }
 </style>

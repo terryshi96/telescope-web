@@ -3,7 +3,7 @@
       theme="light"
       collapsible
       v-model="collapsed"
-      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '105px', bottom: 0, 'z-index': 2 }"
+      :style="{ overflow: 'auto', position: 'fixed', left: 0, top: '111px', bottom: 0, 'z-index': 2 }"
       @mouseleave="mouseleave"
     >
 
@@ -68,7 +68,7 @@ export default {
 
 <style lang="scss">
   .ant-layout-sider-trigger {
-    top: 57px;
+    top: 63px;
     border-right: 1px solid #e8e8e8;
   }
 </style>

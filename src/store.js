@@ -21,7 +21,22 @@ export default new Vuex.Store({
   // getters are functions
   // getters中的函数不改变state, 而是根据state计算相应的值，对应计算属性
   // getters : {
-  //   evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
+  // cartProducts: (state, getters, rootState) => {
+  //   return state.items.map(({ id, quantity }) => {
+  //     const product = rootState.products.all.find(product => product.id === id)
+  //     return {
+  //       title: product.title,
+  //       price: product.price,
+  //       quantity
+  //     }
+  //   })
+  // },
+
+  // cartTotalPrice: (state, getters) => {
+  //   return getters.cartProducts.reduce((total, product) => {
+  //     return total + product.price * product.quantity
+  //   }, 0)
+  // }
   // }
 
   // 通过mutation 改变state的状态 这一点与react不同。通常不直接使用而是由action调用
