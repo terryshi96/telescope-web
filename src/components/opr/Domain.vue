@@ -14,9 +14,9 @@
                 @change="handleTableChange"
               >
               </a-table>
-              <a-button @click="newDomain" type="primary" icon="plus">New Domain</a-button>&nbsp;
+              <!-- <a-button @click="newDomain" type="primary" icon="plus">New Domain</a-button>&nbsp;
               <a-button @click="deleteSelected" type="primary" icon="minus" :disabled="!hasSelected" >Delete Selected</a-button>&nbsp;
-              <a-button @click="refreshAll" type="primary" icon="sync">Refresh All</a-button>&nbsp;
+              <a-button @click="refreshAll" type="primary" icon="sync">Refresh All</a-button>&nbsp; -->
 
         </div>
       </a-layout-content>
