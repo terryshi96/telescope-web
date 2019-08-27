@@ -26,7 +26,11 @@ export default {
   },
   beforeCreate () {
     // 判断是否已经登陆
-    const userSessionKey = this.$cookies.get('user_session_key')
+    let userSessionKey = this.$cookies.get('user_session_key')
+    if (userSessionKey === 'undefined') {
+      this.$cookies.remove('user_session_key')
+      userSessionKey = null
+    }
     if (userSessionKey === null) {
       this.$message.error('Please login first!')
       window.setTimeout(function () { window.location.href = '/' }, 1500)

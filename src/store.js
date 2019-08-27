@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import domain from './store/domain'
 import global from './store/global'
 
+// 跟接口数据相关的和全局变量使用store
 // 如果在模块化构建系统中，请确保在开头调用了 Vue.use(Vuex)
+
 Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {

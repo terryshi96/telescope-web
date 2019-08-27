@@ -14,16 +14,23 @@
                 @change="handleTableChange"
               >
               </a-table>
-              <!-- <a-button @click="newDomain" type="primary" icon="plus">New Domain</a-button>&nbsp;
+              <br/>
+              <a-button @click="showModal" type="primary" icon="plus">New Domain</a-button>&nbsp;
+              <collection-create-form
+                ref="collectionForm"
+                :visible="visible"
+                @cancel="handleCancel"
+                @create="handleCreate"
+              />
               <a-button @click="deleteSelected" type="primary" icon="minus" :disabled="!hasSelected" >Delete Selected</a-button>&nbsp;
-              <a-button @click="refreshAll" type="primary" icon="sync">Refresh All</a-button>&nbsp; -->
+              <a-button @click="refreshAll" type="primary" icon="sync">Refresh All</a-button>&nbsp;
 
         </div>
       </a-layout-content>
 </template>
 
 <script>
-import { Layout, Breadcrumb, Table, Button } from 'ant-design-vue'
+import { Layout, Breadcrumb, Table, Button, Modal, Form, Input } from 'ant-design-vue'
 import { mapState, mapActions } from 'vuex'
 
 const columns = [
@@ -45,10 +52,55 @@ const columns = [
   },
   {
     title: 'Notification',
-    dataIndex: 'receiver_group_id'
+    dataIndex: 'name'
   }
 
 ]
+
+const CollectionCreateForm = {
+  components: {
+    'a-form': Form,
+    'a-form-item': Form.Item,
+    'a-input': Input,
+    'a-modal': Modal
+  },
+  props: ['visible'],
+  beforeCreate () {
+    this.form = this.$form.createForm(this)
+  },
+  template: `
+    <a-modal
+      :visible="visible"
+      title='Create a new record'
+      okText='Create'
+      @cancel="() => { $emit('cancel') }"
+      @ok="() => { $emit('create') }"
+    >
+      <a-form layout='vertical' :form="form">
+        <a-form-item label='Domain Name'>
+          <a-input
+            v-decorator="[
+              'domain',
+              {
+                rules: [{ required: true, message: 'Please input a domain name' }],
+              }
+            ]"
+          />
+        </a-form-item>
+        <a-form-item label='Receiver Group'>
+          <a-input
+            v-decorator="[
+              'receiver_group_id',
+              {
+                rules: [{ required: true, message: 'Please select a receiver group' }],
+              }
+            ]"
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
+  `
+}
 
 export default {
   components: {
@@ -56,13 +108,15 @@ export default {
     'a-breadcrumb': Breadcrumb,
     'a-breadcrumb-item': Breadcrumb.Item,
     'a-table': Table,
-    'a-button': Button
+    'a-button': Button,
+    'collection-create-form': CollectionCreateForm
   },
 
   data () {
     return {
       columns,
-      selectedRowKeys: []
+      selectedRowKeys: [],
+      visible: false
     }
   },
 
@@ -72,7 +126,8 @@ export default {
     ]),
     ...mapState('domain', [
       'items',
-      'pagination'
+      'pagination',
+      'params'
     ]),
     hasSelected () {
       return this.selectedRowKeys.length > 0
@@ -82,16 +137,41 @@ export default {
   methods: {
     ...mapActions('domain', [
       'getDomains',
-      'handleTableChange'
+      'handleTableChange',
+      'newDomain',
+      'deleteSelected'
     ]),
+
     onSelectChange (selectedRowKeys) {
       // console.log('selectedRowKeys changed: ', selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
+    },
+
+    showModal () {
+      this.visible = true
+    },
+
+    handleCancel (e) {
+      this.visible = false
+    },
+
+    handleCreate () {
+      const form = this.$refs.collectionForm.form
+      form.validateFields((err, values) => {
+        if (err) {
+          return
+        }
+        console.log('Received values of form: ', values)
+        this.newDomain({ app: this, params: values })
+        form.resetFields()
+        this.visible = false
+      })
     }
+
   },
 
   mounted () {
-    this.getDomains()
+    this.getDomains(this)
   }
 }
 </script>

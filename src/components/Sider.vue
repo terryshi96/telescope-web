@@ -23,7 +23,8 @@
             <router-link to="/opr/domain">SSL Expiration</router-link>
           </a-menu-item>
 
-          <a-menu-item key="3">Sites</a-menu-item>
+          <a-menu-item key="3">Domains</a-menu-item>
+          <a-menu-item key="4">Alarm</a-menu-item>
         </a-sub-menu>
 
         <a-sub-menu key="sub2">

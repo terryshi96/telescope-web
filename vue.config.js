@@ -1,6 +1,7 @@
 
 module.exports = {
   lintOnSave: true,
+  runtimeCompiler: true,
   chainWebpack: config => config.resolve.symlinks(false),
   devServer: {
     proxy: {

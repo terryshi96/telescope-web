@@ -4,26 +4,26 @@ import router from './router'
 import store from './store'
 import { message } from 'ant-design-vue'
 import VueCookies from 'vue-cookies'
-import Collector from 'perforweb'
+// import Collector from 'perforweb'
 
 Vue.config.productionTip = false
 Vue.prototype.$message = message
 Vue.use(VueCookies)
 
-const config = {
-  list: ['resource', 'navigation'],
-  timeout: 500,
-  influxdb: {
-    host: 'localhost',
-    port: 8086,
-    database: 'test',
-    username: 'admin',
-    password: 'admin'
-  },
-  log: true
-}
-let c = new Collector(config)
-c.listen()
+// const config = {
+//   list: ['resource', 'navigation'],
+//   timeout: 500,
+//   influxdb: {
+//     host: 'localhost',
+//     port: 8086,
+//     database: 'test',
+//     username: 'admin',
+//     password: 'admin'
+//   },
+//   log: true
+// }
+// let c = new Collector(config)
+// c.listen()
 
 new Vue({
   // 挂载路由

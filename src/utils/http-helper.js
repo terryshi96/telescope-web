@@ -6,8 +6,8 @@ import Cookies from 'js-cookie'
 let isRefreshing = false
 const ApiConfig = {
   api_url: '',
-  api_uid: 'b373bfd492df5845d525637240649a0f0d7f846945f1a4d6725b5057528494b4',
-  api_secret: 'bcd6c52c1718311b6977a233af69c2ddcfc714e5e28ee8707454a46b6fa03375'
+  api_uid: 'f9861704dfc88921a039d99755ba7fdc874cd5487b7ccd836789d7b43489e55e',
+  api_secret: '69d66fc6ec161b809d91e28a79ab7679b8a9d8f83a175d37ce9865dbfd7a5965'
 }
 
 // `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。
@@ -147,6 +147,7 @@ class HttpHelper {
       case 'get':
         // user_session_key失效时，取得cookie中的账户重新获取session_key,然后再次发请求
         return instance.get(url, { params }).then((res) => {
+          // console.log(typeof (res.data.status.code))
           if (res.data.status.code === '50001' && Cookies.get('name') && Cookies.get('pass')) {
             return this.signIn().then((status) => {
               return status && instance.get(url, { params })

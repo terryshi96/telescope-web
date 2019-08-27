@@ -12,7 +12,7 @@
       }"
   >
       <div class="logo">
-        <p>Telescope</p>
+        <p>TeleScope</p>
       </div>
   </a-layout-header>
 </template>
