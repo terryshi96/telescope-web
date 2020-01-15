@@ -70,13 +70,12 @@ export default {
         return
       }
       this.isBtnLoading = true
-      const type = 'post'
       const url = '/api/v1/users/sign_in.json'
       const params = {
         account: this.userName,
         password: this.password
       }
-      httpHelper.REQUEST(url, params, type).then((res) => {
+      httpHelper.REQUEST(url, params, 'post').then((res) => {
         const status = res.data.status
         if (status.code === '20000') {
           const user = res.data.data.user

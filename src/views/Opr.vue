@@ -33,7 +33,7 @@ export default {
     }
     if (userSessionKey === null) {
       this.$message.error('Please login first!')
-      window.setTimeout(function () { window.location.href = '/' }, 1500)
+      window.setTimeout(function () { window.location.href = '/' }, 500)
     }
   }
 }

@@ -12,9 +12,10 @@ const state = {
     'showQuickJumper': true
   },
   params: {
-    domains: [],
-    domain: '',
-    receiver_group_id: ''
+    users: [],
+    username: '',
+    password: '',
+    email: ''
   }
 }
 
@@ -25,7 +26,7 @@ const getters = {
       user_session_key: Cookies.get('user_session_key'),
       page: state.pagination.current,
       per: state.pagination.pageSize,
-      ids: state.params.domains
+      ids: state.params.users
     }
     return dataHelper.deleteEmptyQueryParams(handledParams)
   },
@@ -33,9 +34,9 @@ const getters = {
   postParams: (state) => {
     let handledParams = {
       user_session_key: Cookies.get('user_session_key'),
-      url: state.params.domain,
-      receiver_group_id: state.params.receiver_group_id
-
+      username: state.params.username,
+      password: state.params.password,
+      email: state.params.email
     }
     return dataHelper.deleteEmptyQueryParams(handledParams)
   }
@@ -43,17 +44,16 @@ const getters = {
 
 // actions
 const actions = {
-  getDomains ({ commit, getters }, app) {
-    const url = '/api/v1/domains/get_domains.json'
+  getUsers ({ commit, getters }, app) {
+    const url = '/api/v1/users/get_users.json'
     // commit global模块中的startLoading 改变loading状态
     commit('global/startLoading', null, { root: true })
     httpHelper.REQUEST(url, getters.getParams, 'get').then((res) => {
       const status = res.data.status
       if (status.code === '20000') {
-        let items = res.data.data.domains
+        let items = res.data.data.users
         items.map((item) => {
-          item.expire_date = dataHelper.dateCommonFormat(item.expire_date)
-          item.updated_at = dataHelper.dateCommonFormat(item.updated_at)
+          item.admin = item.admin ? 'True' : 'False'
         })
         commit('setItems', items)
         commit('setTotal', res.data.data.count)
@@ -66,14 +66,14 @@ const actions = {
     })
   },
 
-  newDomain ({ commit, getters, dispatch }, { app, params }) {
-    const url = '/api/v1/domains.json'
+  newUser ({ commit, getters, dispatch }, { app, params }) {
+    const url = '/api/v1/users.json'
     commit('global/startLoading', null, { root: true })
     commit('setParams', params)
     httpHelper.REQUEST(url, getters.postParams, 'post').then((res) => {
       const status = res.data.status
       if (status.code === '20000') {
-        dispatch('getDomains')
+        dispatch('getUsers')
       } else {
         app.$message.error(status.error_message)
       }
@@ -83,23 +83,7 @@ const actions = {
     })
   },
 
-  refreshAll ({ commit, getters, dispatch }, app) {
-    const url = '/api/v1/domains/refresh.json'
-    commit('global/startLoading', null, { root: true })
-    httpHelper.REQUEST(url, getters.getParams, 'get').then((res) => {
-      const status = res.data.status
-      if (status.code === '20000') {
-        dispatch('getDomains')
-      } else {
-        app.$message.error(status.error_message)
-      }
-      commit('global/stopLoading', null, { root: true })
-    }).catch((e) => {
-      console.log(e)
-    })
-  },
-
-  deleteSelected ({ commit, getters, dispatch }, { app, params }) {
+  deleteUser ({ commit, getters, dispatch }, { app, params }) {
     const url = '/api/v1/domains/delete.json'
     commit('global/startLoading', null, { root: true })
     commit('setParams', params)

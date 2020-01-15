@@ -40,12 +40,20 @@ export default new Router({
           component: () => import('./components/opr/Domain.vue')
         },
         {
+          path: 'sites',
+          component: () => import('./components/opr/Sites.vue')
+        },
+        {
           path: '/',
           component: () => import('./components/opr/SpeedDial.vue')
         },
         {
           path: 'notification',
           component: () => import('./components/opr/Notification.vue')
+        },
+        {
+          path: 'user',
+          component: () => import('./components/opr/User.vue')
         }
       ]
     }

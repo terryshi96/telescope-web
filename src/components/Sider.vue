@@ -7,7 +7,7 @@
       @mouseleave="mouseleave"
     >
 
-      <a-menu theme="light" :defaultSelectedKeys="['1']" mode="inline">
+      <a-menu theme="light" mode="inline">
 
         <a-menu-item key="1">
             <router-link to="/opr" tag="span">
@@ -17,22 +17,27 @@
         </a-menu-item>
 
         <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="hdd" /><span>Monitoring</span></span>
+          <span slot="title"><a-icon type="global" /><span>Monitoring</span></span>
 
           <a-menu-item key="2">
             <router-link to="/opr/domain">SSL Expiration</router-link>
           </a-menu-item>
 
-          <a-menu-item key="3">Domains</a-menu-item>
-          <a-menu-item key="4">Alarm</a-menu-item>
+          <a-menu-item key="3">
+            <router-link to="/opr/sites">Sites Check</router-link>
+          </a-menu-item>
         </a-sub-menu>
 
         <a-sub-menu key="sub2">
           <span slot="title"><a-icon type="setting" /><span>Settings</span></span>
 
-          <a-menu-item key="5">User</a-menu-item>
+          <a-menu-item key="5">
+            <router-link to="/opr/user">Users</router-link>
+          </a-menu-item>
 
-          <a-menu-item key="6">Notification</a-menu-item>
+          <a-menu-item key="6">
+            <router-link to="/opr/notification">Notification</router-link>
+          </a-menu-item>
         </a-sub-menu>
 
       </a-menu>

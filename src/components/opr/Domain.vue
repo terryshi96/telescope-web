@@ -22,7 +22,7 @@
                 @cancel="handleCancel"
                 @create="handleCreate"
               />
-              <a-button @click="deleteSelected" type="primary" icon="minus" :disabled="!hasSelected" >Delete Selected</a-button>&nbsp;
+              <a-button @click="handleSelect" type="primary" icon="minus" :disabled="!hasSelected" >Delete Selected</a-button>&nbsp;
               <a-button @click="refreshAll" type="primary" icon="sync">Refresh All</a-button>&nbsp;
 
         </div>
@@ -47,7 +47,7 @@ const columns = [
     dataIndex: 'expire_date'
   },
   {
-    title: 'Last Updated',
+    title: 'Last Checked',
     dataIndex: 'updated_at'
   },
   {
@@ -139,7 +139,8 @@ export default {
       'getDomains',
       'handleTableChange',
       'newDomain',
-      'deleteSelected'
+      'deleteSelected',
+      'refreshAll'
     ]),
 
     onSelectChange (selectedRowKeys) {
@@ -151,7 +152,7 @@ export default {
       this.visible = true
     },
 
-    handleCancel (e) {
+    handleCancel () {
       this.visible = false
     },
 
@@ -161,11 +162,16 @@ export default {
         if (err) {
           return
         }
-        console.log('Received values of form: ', values)
+        // console.log('Received values of form: ', values)
         this.newDomain({ app: this, params: values })
         form.resetFields()
         this.visible = false
       })
+    },
+
+    handleSelect () {
+      this.deleteSelected({ app: this, params: { domains: this.selectedRowKeys } })
+      this.selectedRowKeys = []
     }
 
   },
