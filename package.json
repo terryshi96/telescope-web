@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.2.4",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cryptiles": ">=4.1.2",
     "js-cookie": "^2.2.0",
     "perforweb": "file:../perforweb",
